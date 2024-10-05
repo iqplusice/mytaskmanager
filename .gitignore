@@ -1,0 +1,3 @@
+# Ignore All files and folders in the backend/node_modules folder
+/backend/node_modules
+/backend/.env
