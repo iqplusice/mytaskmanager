@@ -51,10 +51,6 @@ Task.init({
 User.hasMany(Task, {
     onDelete: 'NO ACTION'
 });
-Task.belongsTo(User,{
-    foreignKey: {
-        allowNull: true
-    }
-})
+Task.belongsTo(User)
 
 module.exports = { User, Task};
