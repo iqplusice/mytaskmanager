@@ -4,30 +4,43 @@ const {Task} = require('../models/appmodel')
 const router = express.Router();
 
 //Post Method
-router.post('/createtask', (req, res) => {
-    User.create(req.body).then(() => {
-        res.send('Task is inserted');
-    })
+router.post('/createtask', async (req, res) => {
+    const task = await Task.create(req.body);
+    res.json(task);
 })
 
 //Get all Method
-router.get('/gettasks', (req, res) => {
-    res.send('Get All Task API')
+router.get('/gettasks', async (req, res) => {
+    const tasks = await Task.findAll();
+    res.json(tasks);
 })
 
 //Get by ID Method
-router.get('/getonetask/:id', (req, res) => {
-    res.send('Get Task by ID API')
+router.get('/getonetask/:id', async (req, res) => {
+    const task = await Task.findByPk(req.params.id);
+    res.json(task);
 })
 
 //Update by ID Method
-router.patch('/updatetask/:id', (req, res) => {
-    res.send('Update Task by ID API')
+router.put('/updatetask/:id', async (req, res) => {
+    const task = await Task.findByPk(req.params.id);
+    if (task) {
+      await task.update(req.body);
+      res.json(task);
+    } else {
+      res.status(404).json({ message: 'Task not found' });
+    }
 })
 
 //Delete by ID Method
-router.delete('/deletetask/:id', (req, res) => {
-    res.send('Delete Task by ID API')
+router.delete('/deletetask/:id', async (req, res) => {
+    const task = await Task.findByPk(req.params.id);
+    if (task) {
+      await task.destroy();
+      res.json({ message: 'Task deleted' });
+    } else {
+      res.status(404).json({ message: 'Task not found' });
+    }
 })
 
 module.exports = router;

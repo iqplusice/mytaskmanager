@@ -5,9 +5,6 @@ const router = express.Router();
 
 //Post Method
 router.post('/createuser', async (req, res) => {
-    /* User.create(req.body).then(() => {
-        res.send('User is inserted');
-    }) */
     const user = await User.create(req.body);
     res.json(user);
 })

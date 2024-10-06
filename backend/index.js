@@ -26,8 +26,11 @@ app.use(cors(corsOptions));
 app.use('/user', userroutes);
 app.use('/task', taskroutes);
 
-sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server Started at ${PORT}`)
-    })
+sequelize
+    //.sync()
+    .authenticate()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server Started at ${PORT}`)
+        })
 });
